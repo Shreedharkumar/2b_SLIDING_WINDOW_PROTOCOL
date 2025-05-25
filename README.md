@@ -1,6 +1,7 @@
-# 2b IMPLEMENTATION OF SLIDING WINDOW PROTOCOL
-## AIM
-## ALGORITHM:
+# ExNo.2a_Stop_and_Wait_Protocol
+## AIM 
+To write a python program to perform stop and wait protocol
+## ALGORITHM
 1. Start the program.
 2. Get the frame size from the user
 3. To create the frame based on the user request.
@@ -8,52 +9,43 @@
 5. If your frames reach the server it will send ACK signal to client
 6. Stop the Program
 ## PROGRAM
-Developed by : SHREEDHAR KUMAR K.J
-
-Reg no : 212224230265
-
-
-Client.py
-
-```
-
-import socket
-from datetime import datetime
- 
-s=socket.socket()
- 
-s.bind(('localhost',8080))
- 
-s.listen(5)
-c,addr=s.accept()
-print("Client Address : ",addr)
- 
-now = datetime.now()
- 
-c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
-ack=c.recv(1024).decode()
- 
-if ack:
-    print(ack)
-c.close()
-```
-
-
-Server.py
-```
-
+```python
+1.Client
 import socket 
 s=socket.socket() 
-s.connect(('localhost',8080)) 
-print(s.getsockname()) 
-print(s.recv(1024).decode()) 
-s.send("acknowledgement recived from the server".encode()) 
-
+s.bind(('localhost',8000))
+s.listen(5) 
+c,addr=s.accept() 
+while True: 
+    i=input("Enter a data: ") 
+    c.send(i.encode()) 
+    ack=c.recv(1024).decode() 
+    if ack: 
+        print(ack) 
+        continue 
+    else: 
+        c.close() 
+        break 
 ```
-## OUPUT
+```python
+2.server
+import socket 
+s=socket.socket() 
+s.connect(('localhost',8000)) 
+while True: 
+    print(s.recv(1024).decode()) 
+    s.send("Acknowledgement Recived".encode())
+```
 
-![Screenshot 2025-04-12 105945](https://github.com/user-attachments/assets/8b83008a-0327-4cc1-8e5f-ef3d65f00db3)
+## OUTPUT
 
+1.Client
+
+![image](https://github.com/user-attachments/assets/aa6a1d6c-65bb-4f75-94d3-bea84837c8ed)
+
+2.Server
+
+![image](https://github.com/user-attachments/assets/93f3c52c-e7ee-4a79-9fab-93e070259fd1)
 
 ## RESULT
-Thus, python program to perform stop and wait protocol was successfully executed
+Thus, python program to perform stop and wait protocol was successfully executed.
